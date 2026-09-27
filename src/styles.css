@@ -1,0 +1,125 @@
+@import "tailwindcss";
+@import "@fontsource-variable/syne";
+@import "@fontsource/ibm-plex-mono/400.css";
+@import "@fontsource/ibm-plex-mono/500.css";
+@import "@fontsource/ibm-plex-mono/600.css";
+
+@theme {
+  --font-sans: "Syne Variable", Syne, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  --color-background: #0c0d0c;
+  --color-foreground: #eeeee8;
+  --color-card: #151615;
+  --color-card-foreground: #eeeee8;
+  --color-popover: #1c1e1c;
+  --color-popover-foreground: #eeeee8;
+  --color-primary: #eeeee8;
+  --color-primary-foreground: #0c0d0c;
+  --color-secondary: #1c1e1c;
+  --color-secondary-foreground: #eeeee8;
+  --color-muted: #1c1e1c;
+  --color-muted-foreground: #8c8f87;
+  --color-accent: #8aa892;
+  --color-accent-foreground: #0c0d0c;
+  --color-destructive: #c27b6a;
+  --color-destructive-foreground: #eeeee8;
+  --color-border: #2a2c29;
+  --color-input: #2a2c29;
+  --color-ring: #8aa892;
+  --color-signal: #8aa892;
+  --color-paper: #eeeee8;
+  --color-subtle: #5c5f58;
+
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-2xl: 28px;
+
+  --shadow-instrument: 0 0 0 1px rgba(238, 238, 232, 0.08);
+  --shadow-instrument-hover: 0 0 0 1px rgba(238, 238, 232, 0.14);
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background: var(--color-background);
+    color: var(--color-foreground);
+  }
+
+  body {
+    min-height: 100dvh;
+    background: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  * {
+    border-color: var(--color-border);
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-accent) 35%, transparent);
+    color: var(--color-foreground);
+  }
+}
+
+@utility instrument {
+  position: relative;
+  background: var(--color-card);
+  box-shadow: var(--shadow-instrument);
+}
+
+@keyframes led-breathe {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.led-live {
+  animation: led-breathe 1.6s ease-in-out infinite;
+}
+
+.packet-enter {
+  animation: rise-in 250ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .led-live,
+  .packet-enter {
+    animation: none;
+  }
+}
